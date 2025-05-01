@@ -1,10 +1,13 @@
+import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineField, defineType } from "sanity";
 
 export const pictureType = defineType({
   name: "picture",
   type: "document",
   __experimental_formPreviewTitle: false,
+  orderings: [orderRankOrdering],
   fields: [
+    orderRankField({ type: "picture" }),
     defineField({
       name: "name",
       type: "string",
@@ -18,7 +21,17 @@ export const pictureType = defineType({
       },
     }),
     defineField({
-      name: "image",
+      name: "photographer",
+      type: "reference",
+      to: [{ type: "photographer" }],
+      options: {
+        disableNew: true,
+      },
+      title: "Photographer",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "imageWithAlt",
       type: "image",
       validation: (rule) => rule.required(),
       options: {
@@ -32,7 +45,7 @@ export const pictureType = defineType({
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
-              if ((context.document?.image as any)?.asset?._ref && !alt) {
+              if ((context.document?.imageWithAlt as any)?.asset?._ref && !alt) {
                 return "Required";
               }
               return true;
@@ -45,7 +58,7 @@ export const pictureType = defineType({
   preview: {
     select: {
       title: "name",
-      media: "image",
+      media: "imageWithAlt",
     },
   },
 });

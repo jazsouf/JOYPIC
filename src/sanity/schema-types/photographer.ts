@@ -20,7 +20,7 @@ export const photographerType = defineType({
       },
     }),
     defineField({
-      name: "image",
+      name: "imageWithAlt",
       type: "image",
       validation: (rule) => rule.required(),
       options: {
@@ -34,7 +34,7 @@ export const photographerType = defineType({
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
-              if ((context.document?.image as any)?.asset?._ref && !alt) {
+              if ((context.document?.imageWithAlt as any)?.asset?._ref && !alt) {
                 return "Required";
               }
               return true;
@@ -45,20 +45,13 @@ export const photographerType = defineType({
     }),
     defineField({
       name: "bio",
-      type: "array",
-      of: [
-        {
-          type: "block",
-          styles: [{ title: "Normal", value: "normal" }],
-          lists: [],
-        },
-      ],
+      type: "richText",
     }),
   ],
   preview: {
     select: {
       title: "name",
-      media: "image",
+      media: "imageWithAlt",
     },
   },
 });

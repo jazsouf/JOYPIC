@@ -80,7 +80,7 @@ export const richTextType = defineType({
                 options: {
                   disableNew: true,
                 },
-                to: [{ type: "home" }, { type: "page" }, { type: "product" }],
+                to: [{ type: "photographer" }, { type: "picture" }],
                 validation: (rule) => rule.required(),
               }),
             ],
