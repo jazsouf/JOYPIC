@@ -21,6 +21,10 @@ export const pictureType = defineType({
       },
     }),
     defineField({
+      name: "date",
+      type: "datetime",
+    }),
+    defineField({
       name: "photographer",
       type: "reference",
       to: [{ type: "photographer" }],

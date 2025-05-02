@@ -9,7 +9,7 @@ const pictureBaseFields = /* groq */ `
   "status": select(_id in path("drafts.**") => "draft", "published"),
   "slug": slug.current,
   name,
-  publishedAt,
+  date,
   imageWithAlt {
     "ref": asset._ref,
     alt,
