@@ -4,7 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import { sanityClient as client } from "sanity:client";
 
 interface Props {
-  node: CollectionEntry<"products">["data"]["imageWithAlt"];
+  node: CollectionEntry<"pictures">["data"]["imageWithAlt"];
   width?: number;
 }
 
@@ -17,7 +17,7 @@ export function getSanityImage({ node, width = 960 }: Props) {
   // presenting images, and https://www.sanity.io/docs/image-url for specifics on
   // this builder API
   try {
-    image = node.ref && builder.image(node.ref).width(width).fit("crop").auto("format");
+    image = node.ref ? builder.image(node.ref).width(width).fit("crop").auto("format") : undefined;
   } catch (error) {
     console.error(error);
   }

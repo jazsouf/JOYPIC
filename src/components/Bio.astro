@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from "astro:content";
+import RichText from "./RichText.astro";
+import type { PortableTextProps } from "astro-portabletext/types";
+
+interface Props {
+  allPhotographers: CollectionEntry<"photographers">[];
+}
+
+const { allPhotographers } = Astro.props;
+---
+
+<style></style>
+<RichText content={allPhotographers[0].data.bio as PortableTextProps["value"]} />

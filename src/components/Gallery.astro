@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from "astro:content";
+import SanityImage from "./SanityImage.astro";
+interface Props {
+  allPictures: CollectionEntry<"pictures">[];
+}
+
+const { allPictures } = Astro.props;
+---
+
+<style></style>
+<section>
+  {
+    allPictures.map((picture) => {
+      return <SanityImage node={picture.data.imageWithAlt} />;
+    })
+  }
+</section>
